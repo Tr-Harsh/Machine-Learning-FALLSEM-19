@@ -1,0 +1,839 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{class7}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sb}
+        
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{winequality\PYZhy{}red.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}    fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \textbackslash{}
+        0            7.4              0.70         0.00             1.9      0.076   
+        1            7.8              0.88         0.00             2.6      0.098   
+        2            7.8              0.76         0.04             2.3      0.092   
+        3           11.2              0.28         0.56             1.9      0.075   
+        4            7.4              0.70         0.00             1.9      0.076   
+        
+           free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \textbackslash{}
+        0                 11.0                  34.0   0.9978  3.51       0.56   
+        1                 25.0                  67.0   0.9968  3.20       0.68   
+        2                 15.0                  54.0   0.9970  3.26       0.65   
+        3                 17.0                  60.0   0.9980  3.16       0.58   
+        4                 11.0                  34.0   0.9978  3.51       0.56   
+        
+           alcohol  quality  
+        0      9.4        5  
+        1      9.8        5  
+        2      9.8        5  
+        3      9.8        6  
+        4      9.4        5  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}        fixed acidity  volatile acidity  citric acid  residual sugar  \textbackslash{}
+        count    1599.000000       1599.000000  1599.000000     1599.000000   
+        mean        8.319637          0.527821     0.270976        2.538806   
+        std         1.741096          0.179060     0.194801        1.409928   
+        min         4.600000          0.120000     0.000000        0.900000   
+        25\%         7.100000          0.390000     0.090000        1.900000   
+        50\%         7.900000          0.520000     0.260000        2.200000   
+        75\%         9.200000          0.640000     0.420000        2.600000   
+        max        15.900000          1.580000     1.000000       15.500000   
+        
+                 chlorides  free sulfur dioxide  total sulfur dioxide      density  \textbackslash{}
+        count  1599.000000          1599.000000           1599.000000  1599.000000   
+        mean      0.087467            15.874922             46.467792     0.996747   
+        std       0.047065            10.460157             32.895324     0.001887   
+        min       0.012000             1.000000              6.000000     0.990070   
+        25\%       0.070000             7.000000             22.000000     0.995600   
+        50\%       0.079000            14.000000             38.000000     0.996750   
+        75\%       0.090000            21.000000             62.000000     0.997835   
+        max       0.611000            72.000000            289.000000     1.003690   
+        
+                        pH    sulphates      alcohol      quality  
+        count  1599.000000  1599.000000  1599.000000  1599.000000  
+        mean      3.311113     0.658149    10.422983     5.636023  
+        std       0.154386     0.169507     1.065668     0.807569  
+        min       2.740000     0.330000     8.400000     3.000000  
+        25\%       3.210000     0.550000     9.500000     5.000000  
+        50\%       3.310000     0.620000    10.200000     6.000000  
+        75\%       3.400000     0.730000    11.100000     6.000000  
+        max       4.010000     2.000000    14.900000     8.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{column} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{sb}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{column}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{class7_files/class7_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{bins} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mf}{6.5}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}
+        \PY{n}{group} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{good}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}\PY{p}{,} \PY{n}{LabelEncoder}
+        
+        \PY{n}{labels} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labels}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 1    1382
+        0     217
+        Name: quality, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}network} \PY{k}{import} \PY{n}{MLPClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{MLPClassifier}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}sizes}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,}
+                              \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sgd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}  \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{21}\PY{p}{,}\PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.000000001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 1, loss = 1.23118013
+Iteration 2, loss = 0.73814631
+Iteration 3, loss = 0.47116580
+Iteration 4, loss = 0.42172189
+Iteration 5, loss = 0.40126573
+Iteration 6, loss = 0.39361350
+Iteration 7, loss = 0.39114801
+Iteration 8, loss = 0.38626988
+Iteration 9, loss = 0.38720320
+Iteration 10, loss = 0.38362613
+Iteration 11, loss = 0.38240873
+Iteration 12, loss = 0.38143433
+Iteration 13, loss = 0.38114092
+Iteration 14, loss = 0.38125703
+Iteration 15, loss = 0.38022588
+Iteration 16, loss = 0.37930605
+Iteration 17, loss = 0.37909645
+Iteration 18, loss = 0.38020557
+Iteration 19, loss = 0.37799591
+Iteration 20, loss = 0.37646934
+Iteration 21, loss = 0.37680444
+Iteration 22, loss = 0.37688941
+Iteration 23, loss = 0.37627445
+Iteration 24, loss = 0.37586787
+Iteration 25, loss = 0.37502433
+Iteration 26, loss = 0.37450101
+Iteration 27, loss = 0.37478391
+Iteration 28, loss = 0.37402366
+Iteration 29, loss = 0.37508840
+Iteration 30, loss = 0.37410361
+Iteration 31, loss = 0.37361617
+Iteration 32, loss = 0.37274995
+Iteration 33, loss = 0.37396485
+Iteration 34, loss = 0.37269644
+Iteration 35, loss = 0.37382923
+Iteration 36, loss = 0.37129194
+Iteration 37, loss = 0.37248311
+Iteration 38, loss = 0.37097792
+Iteration 39, loss = 0.37093003
+Iteration 40, loss = 0.37110790
+Iteration 41, loss = 0.37097001
+Iteration 42, loss = 0.37213365
+Iteration 43, loss = 0.37125587
+Iteration 44, loss = 0.37006772
+Iteration 45, loss = 0.37006896
+Iteration 46, loss = 0.36987433
+Iteration 47, loss = 0.36933625
+Iteration 48, loss = 0.36902032
+Iteration 49, loss = 0.36956772
+Iteration 50, loss = 0.36853004
+Iteration 51, loss = 0.36907922
+Iteration 52, loss = 0.36995313
+Iteration 53, loss = 0.36858713
+Iteration 54, loss = 0.36913910
+Iteration 55, loss = 0.36834161
+Iteration 56, loss = 0.36888057
+Iteration 57, loss = 0.36781996
+Iteration 58, loss = 0.36813484
+Iteration 59, loss = 0.36732980
+Iteration 60, loss = 0.36820288
+Iteration 61, loss = 0.36704901
+Iteration 62, loss = 0.36700233
+Iteration 63, loss = 0.36686088
+Iteration 64, loss = 0.36870898
+Iteration 65, loss = 0.36644216
+Iteration 66, loss = 0.36639761
+Iteration 67, loss = 0.36597166
+Iteration 68, loss = 0.36710837
+Iteration 69, loss = 0.36569343
+Iteration 70, loss = 0.36571460
+Iteration 71, loss = 0.36585779
+Iteration 72, loss = 0.36538022
+Iteration 73, loss = 0.36525096
+Iteration 74, loss = 0.36567217
+Iteration 75, loss = 0.36544445
+Iteration 76, loss = 0.36480757
+Iteration 77, loss = 0.36566284
+Iteration 78, loss = 0.36417221
+Iteration 79, loss = 0.36490935
+Iteration 80, loss = 0.36633175
+Iteration 81, loss = 0.36604097
+Iteration 82, loss = 0.36348712
+Iteration 83, loss = 0.36407933
+Iteration 84, loss = 0.36330822
+Iteration 85, loss = 0.36318259
+Iteration 86, loss = 0.36326920
+Iteration 87, loss = 0.36310055
+Iteration 88, loss = 0.36311282
+Iteration 89, loss = 0.36355923
+Iteration 90, loss = 0.36247584
+Iteration 91, loss = 0.36198639
+Iteration 92, loss = 0.36273971
+Iteration 93, loss = 0.36273441
+Iteration 94, loss = 0.36171268
+Iteration 95, loss = 0.36207558
+Iteration 96, loss = 0.36174467
+Iteration 97, loss = 0.36261813
+Iteration 98, loss = 0.36154533
+Iteration 99, loss = 0.36228021
+Iteration 100, loss = 0.36056592
+Iteration 101, loss = 0.36125750
+Iteration 102, loss = 0.36267276
+Iteration 103, loss = 0.36155199
+Iteration 104, loss = 0.36084282
+Iteration 105, loss = 0.36110800
+Iteration 106, loss = 0.35993200
+Iteration 107, loss = 0.36114866
+Iteration 108, loss = 0.36101498
+Iteration 109, loss = 0.36016517
+Iteration 110, loss = 0.36100541
+Iteration 111, loss = 0.35919354
+Iteration 112, loss = 0.35920246
+Iteration 113, loss = 0.36000290
+Iteration 114, loss = 0.36271032
+Iteration 115, loss = 0.35848028
+Iteration 116, loss = 0.35862213
+Iteration 117, loss = 0.35934689
+Iteration 118, loss = 0.35869755
+Iteration 119, loss = 0.35881672
+Iteration 120, loss = 0.35809861
+Iteration 121, loss = 0.35734278
+Iteration 122, loss = 0.35819870
+Iteration 123, loss = 0.35828041
+Iteration 124, loss = 0.35907381
+Iteration 125, loss = 0.35756489
+Iteration 126, loss = 0.35685497
+Iteration 127, loss = 0.35747403
+Iteration 128, loss = 0.35851282
+Iteration 129, loss = 0.35650872
+Iteration 130, loss = 0.35762871
+Iteration 131, loss = 0.35707764
+Iteration 132, loss = 0.35593150
+Iteration 133, loss = 0.35710213
+Iteration 134, loss = 0.35676263
+Iteration 135, loss = 0.36035192
+Iteration 136, loss = 0.35612264
+Iteration 137, loss = 0.35632214
+Iteration 138, loss = 0.35610685
+Iteration 139, loss = 0.35602385
+Iteration 140, loss = 0.35541328
+Iteration 141, loss = 0.35495808
+Iteration 142, loss = 0.35475539
+Iteration 143, loss = 0.35462078
+Iteration 144, loss = 0.35511099
+Iteration 145, loss = 0.35521985
+Iteration 146, loss = 0.35376549
+Iteration 147, loss = 0.35569332
+Iteration 148, loss = 0.35336257
+Iteration 149, loss = 0.35363432
+Iteration 150, loss = 0.35317253
+Iteration 151, loss = 0.35335132
+Iteration 152, loss = 0.35259305
+Iteration 153, loss = 0.35405128
+Iteration 154, loss = 0.35451000
+Iteration 155, loss = 0.35214897
+Iteration 156, loss = 0.35303733
+Iteration 157, loss = 0.35219284
+Iteration 158, loss = 0.35396130
+Iteration 159, loss = 0.35156513
+Iteration 160, loss = 0.35119641
+Iteration 161, loss = 0.35134565
+Iteration 162, loss = 0.35120557
+Iteration 163, loss = 0.35062645
+Iteration 164, loss = 0.35263480
+Iteration 165, loss = 0.35118149
+Iteration 166, loss = 0.35130989
+Iteration 167, loss = 0.35230977
+Iteration 168, loss = 0.34992969
+Iteration 169, loss = 0.35026685
+Iteration 170, loss = 0.34951259
+Iteration 171, loss = 0.35018683
+Iteration 172, loss = 0.35042879
+Iteration 173, loss = 0.34883721
+Iteration 174, loss = 0.34873253
+Iteration 175, loss = 0.34839473
+Iteration 176, loss = 0.34894189
+Iteration 177, loss = 0.34918622
+Iteration 178, loss = 0.34969111
+Iteration 179, loss = 0.34794374
+Iteration 180, loss = 0.34760575
+Iteration 181, loss = 0.34783097
+Iteration 182, loss = 0.34779498
+Iteration 183, loss = 0.34778742
+Iteration 184, loss = 0.34841585
+Iteration 185, loss = 0.34843526
+Iteration 186, loss = 0.34716138
+Iteration 187, loss = 0.35104915
+Iteration 188, loss = 0.34809459
+Iteration 189, loss = 0.34615397
+Iteration 190, loss = 0.34550374
+Iteration 191, loss = 0.34530496
+Iteration 192, loss = 0.34524480
+Iteration 193, loss = 0.34515800
+Iteration 194, loss = 0.34586013
+Iteration 195, loss = 0.34451313
+Iteration 196, loss = 0.34598054
+Iteration 197, loss = 0.34389891
+Iteration 198, loss = 0.34368439
+Iteration 199, loss = 0.34555312
+Iteration 200, loss = 0.34450973
+Iteration 201, loss = 0.34399217
+Iteration 202, loss = 0.34396193
+Iteration 203, loss = 0.34284730
+Iteration 204, loss = 0.34312599
+Iteration 205, loss = 0.34248005
+Iteration 206, loss = 0.34445378
+Iteration 207, loss = 0.34210498
+Iteration 208, loss = 0.34263805
+Iteration 209, loss = 0.34376694
+Iteration 210, loss = 0.34200345
+Iteration 211, loss = 0.34210798
+Iteration 212, loss = 0.33998558
+Iteration 213, loss = 0.34439196
+Iteration 214, loss = 0.34162898
+Iteration 215, loss = 0.34073165
+Iteration 216, loss = 0.33948144
+Iteration 217, loss = 0.33987884
+Iteration 218, loss = 0.34084704
+Iteration 219, loss = 0.34038094
+Iteration 220, loss = 0.33985317
+Iteration 221, loss = 0.34039037
+Iteration 222, loss = 0.34096890
+Iteration 223, loss = 0.33874852
+Iteration 224, loss = 0.33925870
+Iteration 225, loss = 0.33835954
+Iteration 226, loss = 0.33842679
+Iteration 227, loss = 0.33638928
+Iteration 228, loss = 0.33749898
+Iteration 229, loss = 0.33710978
+Iteration 230, loss = 0.33705904
+Iteration 231, loss = 0.33942065
+Iteration 232, loss = 0.33678332
+Iteration 233, loss = 0.33594256
+Iteration 234, loss = 0.33525999
+Iteration 235, loss = 0.33592290
+Iteration 236, loss = 0.33542380
+Iteration 237, loss = 0.33521985
+Iteration 238, loss = 0.33376868
+Iteration 239, loss = 0.33506067
+Iteration 240, loss = 0.33342184
+Iteration 241, loss = 0.33652133
+Iteration 242, loss = 0.33333422
+Iteration 243, loss = 0.33323696
+Iteration 244, loss = 0.33574972
+Iteration 245, loss = 0.33367281
+Iteration 246, loss = 0.33495538
+Iteration 247, loss = 0.33342124
+Iteration 248, loss = 0.33080206
+Iteration 249, loss = 0.33177620
+Iteration 250, loss = 0.33068686
+Iteration 251, loss = 0.33141172
+Iteration 252, loss = 0.32896477
+Iteration 253, loss = 0.33302696
+Iteration 254, loss = 0.32938362
+Iteration 255, loss = 0.32774858
+Iteration 256, loss = 0.32857645
+Iteration 257, loss = 0.32764663
+Iteration 258, loss = 0.32815838
+Iteration 259, loss = 0.32608336
+Iteration 260, loss = 0.33009917
+Iteration 261, loss = 0.32499142
+Iteration 262, loss = 0.32971158
+Iteration 263, loss = 0.32515484
+Iteration 264, loss = 0.32909412
+Iteration 265, loss = 0.32547060
+Iteration 266, loss = 0.32617269
+Iteration 267, loss = 0.32666237
+Iteration 268, loss = 0.32478056
+Iteration 269, loss = 0.32366881
+Iteration 270, loss = 0.32295696
+Iteration 271, loss = 0.32408923
+Iteration 272, loss = 0.32221027
+Iteration 273, loss = 0.32117177
+Iteration 274, loss = 0.32302244
+Iteration 275, loss = 0.32119778
+Iteration 276, loss = 0.32108468
+Iteration 277, loss = 0.32107363
+Iteration 278, loss = 0.32151981
+Iteration 279, loss = 0.32041119
+Iteration 280, loss = 0.31964771
+Iteration 281, loss = 0.32101106
+Iteration 282, loss = 0.31857146
+Iteration 283, loss = 0.31943377
+Iteration 284, loss = 0.31874886
+Iteration 285, loss = 0.32320233
+Iteration 286, loss = 0.31726973
+Iteration 287, loss = 0.31852992
+Iteration 288, loss = 0.31870454
+Iteration 289, loss = 0.31575366
+Iteration 290, loss = 0.31628097
+Iteration 291, loss = 0.31445049
+Iteration 292, loss = 0.32446039
+Iteration 293, loss = 0.31755913
+Iteration 294, loss = 0.31649867
+Iteration 295, loss = 0.31511299
+Iteration 296, loss = 0.31767699
+Iteration 297, loss = 0.31142120
+Iteration 298, loss = 0.31637715
+Iteration 299, loss = 0.31344832
+Iteration 300, loss = 0.31692939
+Iteration 301, loss = 0.31972125
+Iteration 302, loss = 0.31280334
+Iteration 303, loss = 0.31865395
+Iteration 304, loss = 0.31166645
+Iteration 305, loss = 0.31164262
+Iteration 306, loss = 0.30917736
+Iteration 307, loss = 0.31195545
+Iteration 308, loss = 0.31101540
+Iteration 309, loss = 0.30915693
+Iteration 310, loss = 0.31584933
+Iteration 311, loss = 0.31019731
+Iteration 312, loss = 0.31344395
+Iteration 313, loss = 0.31042228
+Iteration 314, loss = 0.30507337
+Iteration 315, loss = 0.30639478
+Iteration 316, loss = 0.30586352
+Iteration 317, loss = 0.30638095
+Iteration 318, loss = 0.30735859
+Iteration 319, loss = 0.30531330
+Iteration 320, loss = 0.30610664
+Iteration 321, loss = 0.30284512
+Iteration 322, loss = 0.30284437
+Iteration 323, loss = 0.30268204
+Iteration 324, loss = 0.30336130
+Iteration 325, loss = 0.30092621
+Iteration 326, loss = 0.30557466
+Iteration 327, loss = 0.29969519
+Iteration 328, loss = 0.30329897
+Iteration 329, loss = 0.29865460
+Iteration 330, loss = 0.30203834
+Iteration 331, loss = 0.30525936
+Iteration 332, loss = 0.30278247
+Iteration 333, loss = 0.30139249
+Iteration 334, loss = 0.29872099
+Iteration 335, loss = 0.29968650
+Iteration 336, loss = 0.30533259
+Iteration 337, loss = 0.30673538
+Iteration 338, loss = 0.29550324
+Iteration 339, loss = 0.30315620
+Iteration 340, loss = 0.30284038
+Iteration 341, loss = 0.29764384
+Iteration 342, loss = 0.29457450
+Iteration 343, loss = 0.29695879
+Iteration 344, loss = 0.29811958
+Iteration 345, loss = 0.29428928
+Iteration 346, loss = 0.29937361
+Iteration 347, loss = 0.29108190
+Iteration 348, loss = 0.29613208
+Iteration 349, loss = 0.29697697
+Iteration 350, loss = 0.29482328
+Iteration 351, loss = 0.29523491
+Iteration 352, loss = 0.29090139
+Iteration 353, loss = 0.29974318
+Iteration 354, loss = 0.29113042
+Iteration 355, loss = 0.30407939
+Iteration 356, loss = 0.29412915
+Iteration 357, loss = 0.28933225
+Iteration 358, loss = 0.29576093
+Iteration 359, loss = 0.29480642
+Iteration 360, loss = 0.31338980
+Iteration 361, loss = 0.29518275
+Iteration 362, loss = 0.28629841
+Iteration 363, loss = 0.32069052
+Iteration 364, loss = 0.29160259
+Iteration 365, loss = 0.29054310
+Iteration 366, loss = 0.28697722
+Iteration 367, loss = 0.29393312
+Iteration 368, loss = 0.28399150
+Iteration 369, loss = 0.28507448
+Iteration 370, loss = 0.28334250
+Iteration 371, loss = 0.28309349
+Iteration 372, loss = 0.28675361
+Iteration 373, loss = 0.28198907
+Iteration 374, loss = 0.33848138
+Iteration 375, loss = 0.30866468
+Iteration 376, loss = 0.28233969
+Iteration 377, loss = 0.29883268
+Iteration 378, loss = 0.32322090
+Iteration 379, loss = 0.27815182
+Iteration 380, loss = 0.28131248
+Iteration 381, loss = 0.28170397
+Iteration 382, loss = 0.28230612
+Iteration 383, loss = 0.27983443
+Iteration 384, loss = 0.31290160
+Iteration 385, loss = 0.29916119
+Iteration 386, loss = 0.28087390
+Iteration 387, loss = 0.27748441
+Iteration 388, loss = 0.27458136
+Iteration 389, loss = 0.27892560
+Iteration 390, loss = 0.28940761
+Iteration 391, loss = 0.30055116
+Iteration 392, loss = 0.29242291
+Iteration 393, loss = 0.28719509
+Iteration 394, loss = 0.30478148
+Iteration 395, loss = 0.31681147
+Iteration 396, loss = 0.28914871
+Iteration 397, loss = 0.28515648
+Iteration 398, loss = 0.28037404
+Iteration 399, loss = 0.27956695
+Training loss did not improve more than tol=0.000000 for 10 consecutive epochs. Stopping.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} MLPClassifier(activation='relu', alpha=0.0001, batch\_size='auto', beta\_1=0.9,
+                beta\_2=0.999, early\_stopping=False, epsilon=1e-08,
+                hidden\_layer\_sizes=(100, 100, 100), learning\_rate='constant',
+                learning\_rate\_init=0.001, max\_iter=500, momentum=0.9,
+                n\_iter\_no\_change=10, nesterovs\_momentum=True, power\_t=0.5,
+                random\_state=21, shuffle=True, solver='sgd', tol=1e-09,
+                validation\_fraction=0.1, verbose=10, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{400}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 0.835
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
